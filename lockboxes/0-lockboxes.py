@@ -4,7 +4,7 @@
 
 def canUnlockAll(boxes):
     """ Method that return true if all boxes can be opened """
-    
+
     # Declaration, vidage et remplissage de la liste des booléen
     list_boxes = []
     for box in boxes:
@@ -29,6 +29,6 @@ def canUnlockAll(boxes):
 
     return_value = True
     for value in list_boxes:
-        if value == False:
+        if value is False:
             return_value = False
     return return_value
