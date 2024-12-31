@@ -25,7 +25,8 @@ def canUnlockAll(boxes):
             if list_boxes[index] == False:
                 list_boxes[index] = True
                 for j in boxes[index]:
-                    list_cles.insert(i + 1, j)
+                    if j not in list_cles:
+                        list_cles.insert(i + 1, j)
         i += 1
         
     return_value = True
