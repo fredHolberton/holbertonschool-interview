@@ -24,7 +24,6 @@ def canUnlockAll(boxes):
         if index >= 0 and index < len(boxes):
             if list_boxes[index] == False:
                 list_boxes[index] = True
-                print("Ouverture de la boite", index)
                 for j in boxes[index]:
                     list_cles.insert(i + 1, j)
         i += 1
