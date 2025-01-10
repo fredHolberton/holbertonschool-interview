@@ -9,33 +9,41 @@
  *
  * Return: address of the new node, or null if it failed
  */
-listint_t *insert_node(listint_t **head, int number);
+listint_t *insert_node(listint_t **head, int number)
 {
-	dlistint_t *temp = head;
-	dlistint_t *new;
+	listint_t *temp = *head;
+	listint_t *new;
 	
+	new = malloc(sizeof(listint_t));
+
+	if (new == NULL)
+		return (NULL);
+
+	new->n = number;
+
 	if (*head == NULL)
 	{
-		new = add_dnodeint(*head, number);
-	        return (new);
+		new->next = NULL;
+		*head = new;
 	}
-
-	while (temp != NULL && temp.n < number)
+	else
 	{
-		temp = temp->next;
+		while (temp->next != NULL && temp->next->n < number)
+		{	
+			temp = temp->next;
+		}	
+
+		if (temp->next == NULL)
+		{
+			new->next = NULL;
+		}
+		else
+		{
+			new->next = temp->next;
+			temp->next = new;
+		}
 	}
-
-	if (temp == NULL)
-	{
-		new = add_nodeint_end(*temp, number);
-		return (new);
-	}
-
-	new->n = n;
-	new->next = temp;
-	new->prev = temp->prev;
-	temp->prev = new;
-
+	
 	return (new);
 }
 
