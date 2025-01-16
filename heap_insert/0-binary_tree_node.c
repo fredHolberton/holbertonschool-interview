@@ -24,8 +24,7 @@ binary_tree_t *binary_tree_node(binary_tree_t *parent, int value)
 
 	if (tmpTree)
 	{
-		do
-		{
+		do {
 			tmpNode = tmpTree;
 			if (value > tmpTree->n)
 			{
