@@ -3,6 +3,33 @@
 #include "binary_trees.h"
 
 /**
+ * swap_new_node - Restores the Max Heap property by swapping nodes upward
+ * @node: Pointer to the node to swap up 
+ *
+ * Return: Pointer to the node after swapping
+ */
+heap_t *swap_new_node(heap_t *node)
+{
+        heap_t *parent;
+        int temp;
+
+        while (node->parent && node->n > node->parent->n)
+        {
+                parent = node->parent;
+
+                /* Swap values */
+                temp = node->n;
+                node->n = parent->n;
+                parent->n = temp;
+
+                /* Move up */
+                node = parent;
+        }
+
+        return (node);
+}
+
+/**
  * find_insertion_parent - Finds the insertion parent in a Max binary Heap
  * @root: Pointer to the root node
  *
@@ -43,7 +70,15 @@ heap_t *heap_insert(heap_t **root, int value)
 {
 	heap_t *parent;
 	heap_t *newNode;
-	heap_t temp;
+
+	if (root == NULL)
+		return (NULL);
+
+	if (*root == NULL)
+	{
+		*root = binary_tree_node(NULL, value);
+		return (*root);
+	}
 
 	// Find the parent node to insert child
 	parent = find_insertion_parent(*root);
@@ -59,20 +94,6 @@ heap_t *heap_insert(heap_t **root, int value)
 		parent->right = newNode;
 
 	// while newNode is not to the right place, swap with parent
-	while (newNode->parent != NULL)
-	{
-		if (newNode->parent->n < value)
-		{
-			temp = *newNode->parent;
-			*newNode->parent = *newNode;
-			*newNode = temp;
-		}
-		else
-		{
-			break;
-		}
-	}
-
-	return (newNode);
+	return (swap_new_node(newNode));
 }
 

@@ -37,6 +37,14 @@ void binary_tree_print(const binary_tree_t *tree);
 binary_tree_t *binary_tree_node(binary_tree_t *parent, int value);
 
 /**
+ * swap_new_node - Restores the Max Heap property by swapping nodes upward
+ * @node: Pointer to the node to swap up
+ *
+ * Return: Pointer to the node after swapping
+ */
+heap_t *swap_new_node(heap_t *node);
+
+/**
  * find_insertion_parent - Finds the insertion parent in a Max binary Heap
  * @root: Pointer to the root node
  *
