@@ -41,8 +41,7 @@ heap_t *find_insertion_parent(heap_t *root)
 	int currentIndex = 0;
 	int maxIndex = 0;
 
-        file[maxIndex] = root;
-	maxIndex++;
+        file[maxIndex++] = root;
 
         while (currentIndex < maxIndex)
         {
@@ -71,7 +70,7 @@ heap_t *heap_insert(heap_t **root, int value)
 	heap_t *parent;
 	heap_t *newNode;
 
-	if (root == NULL)
+	if (!root)
 		return (NULL);
 
 	if (*root == NULL)
@@ -85,10 +84,10 @@ heap_t *heap_insert(heap_t **root, int value)
 
 	// add a new node to the parent founded
 	newNode = binary_tree_node(parent, value);
-	if (newNode == NULL)
+	if (!newNode)
 		return (NULL);
 
-	if (parent->left == NULL)
+	if (!parent->left)
 		parent->left = newNode;
 	else
 		parent->right = newNode;
