@@ -36,4 +36,20 @@ void binary_tree_print(const binary_tree_t *tree);
  */
 binary_tree_t *binary_tree_node(binary_tree_t *parent, int value);
 
+/**
+ * find_insertion_parent - Finds the insertion parent in a Max binary Heap
+ * @root: Pointer to the root node
+ *
+ * Return: Pointer to the parent where the new node should be inserted
+ */
+heap_t *find_insertion_parent(heap_t *root);
+
+/**
+ * heap_insert - Inserts a value into a Max Binary Heap
+ * @root: pointer to root of the binary tree
+ * @value: integer number to  insert at the binary tree
+ * Return: pointer to the inserted node, or NULL on failure
+ */
+heap_t *heap_insert(heap_t **root, int value);
+
 #endif /* _BINARY_TREES_H_ */
