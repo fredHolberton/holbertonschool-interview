@@ -68,14 +68,21 @@ heap_t *find_insertion_parent(heap_t *root)
 heap_t *heap_insert(heap_t **root, int value)
 {
 	heap_t *parent;
-	heap_t *newNode;
+	heap_t *newNode = malloc(sizeof()binary_tree_t);
 
+	if (newNode == NULL)
+		return (NULL);
+
+	newNode->n = value;
+	newNode->parent = NULL;
+	newNode->left = NULL;
+	newNode->right = NULL;
 	if (!root)
 		return (NULL);
 
 	if (*root == NULL)
 	{
-		*root = binary_tree_node(NULL, value);
+		*root = newNode;
 		return (*root);
 	}
 
@@ -83,10 +90,7 @@ heap_t *heap_insert(heap_t **root, int value)
 	parent = find_insertion_parent(*root);
 
 	// add a new node to the parent founded
-	newNode = binary_tree_node(parent, value);
-	if (!newNode)
-		return (NULL);
-
+	newNode->parent = parent;
 	if (!parent->left)
 		parent->left = newNode;
 	else
