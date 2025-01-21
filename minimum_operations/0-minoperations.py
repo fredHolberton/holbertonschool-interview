@@ -16,7 +16,7 @@ def isPrimeNumber(n):
 def greatestDivisor(n):
     m = n // 2
     while (n % m != 0) and m > 3:
-       m = m - 1
+        m = m - 1
     return m
 
 
@@ -37,14 +37,14 @@ def PowerOf(n):
         return p
     else:
         return 0
- 
-                  
+
+              
 def minOperations(n):
     if n <= 1:
         return 0
     if n <= 5:
         return n
-    if isPrimeNumber (n):
+    if isPrimeNumber(n):
         return n
     p = PowerOf(n)
     if p != 0:
@@ -54,6 +54,3 @@ def minOperations(n):
         m = greatestDivisor(n)
         d = n // m
         return minOperations(m) + d
-    
-    
-    
