@@ -26,7 +26,7 @@ def PowerOf(n):
     while (p < i) and (isPowerOf is False):
         m = 2
         while (m < i) and (isPowerOf is False):
-            print("{} ^ {}".format(m,p))
+            #print("{} ^ {}".format(m,p))
             if (m ** p) == n:
                 isPowerOf = True
             else:
@@ -44,17 +44,17 @@ def minOperations(n):
     if n <= 5:
         return n
     if isPrimeNumber (n):
-        print("{} est un nombre premier".format(n))
+        #print("{} est un nombre premier".format(n))
         return n
     p = PowerOf(n)
     if p != 0:
         m = int(n ** (1/p))
-        print("{} = {} ^ {}".format(n, m, p))
+        #print("{} = {} ^ {}".format(n, m, p))
         return minOperations(m) + p + 1
     else:
         m = greatestDivisor(n)
         d = n // m
-        print("{} = {} x {}".format(n, m, d))
+        #print("{} = {} x {}".format(n, m, d))
         return minOperations(m) + d
     
     
