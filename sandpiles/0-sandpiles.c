@@ -99,6 +99,7 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
     printf("=\n");
     print_grid(grid1);
     // Appliquer la propagation au résultat de l'addition
-    sandpiles_propagate(grid1);
+    if (!is_sandpiles_stable(grid1))
+        sandpiles_propagate(grid1);
 }
 
