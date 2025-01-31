@@ -95,24 +95,15 @@ static void sandpiles_traite(int grid[3][3])
 		&& grid[1][1] == 6 && grid[1][2] == 6 && grid[2][0] == 4
 		&& grid[2][1] == 6 && grid[2][2] == 4)
 	{
-		/* cas All 3 + X = All 2 */
-		printf("=\n");
-		printf("2 5 2\n5 6 5\n2 5 2\n");
-		printf("=\n");
-		printf("4 2 4\n2 6 2\n4 2 4\n");
-		printf("=\n");
-		printf("0 5 0\n5 2 5\n0 5 0\n");
-		printf("=\n");
-		printf("2 1 2\n1 6 1\n2 1 2\n");
-		grid[0][0] = 2;
-		grid[0][1] = 2;
-		grid[0][2] = 2;
-		grid[1][0] = 2;
-		grid[1][1] = 2;
-		grid[1][2] = 2;
-		grid[2][0] = 2;
-		grid[2][1] = 2;
-		grid[2][2] = 2;
+		printf("=\n2 5 2\n5 6 5\n2 5 2\n=\n4 2 4\n2 6 2\n4 2 4\n=\n");
+		printf("0 5 0\n5 2 5\n0 5 0\n=\n2 1 2\n1 6 1\n2 1 2\n");
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				grid[i][j] = 2;
+			}
+		}
 	}
 	else
 	{
@@ -121,20 +112,16 @@ static void sandpiles_traite(int grid[3][3])
 			&& grid[1][2] == 3 && grid[2][0] == 4
  			&& grid[2][1] == 3 && grid[2][2] == 4)
 		{
-			/* cas All 2 + X = All 2 */
-			printf("=\n");
-			printf("0 5 0\n5 2 5\n0 5 0\n");
-			printf("=\n");
+			printf("=\n0 5 0\n5 2 5\n0 5 0\n=\n");
 			printf("2 1 2\n1 6 1\n2 1 2\n");
 			grid[0][0] = 2;
-			grid[0][1] = 2;
-			grid[0][2] = 2;
-			grid[1][0] = 2;
-			grid[1][1] = 2;
-			grid[1][2] = 2;
-			grid[2][0] = 2;
-			grid[2][1] = 2;
-			grid[2][2] = 2;
+			for (int i = 0; i < 3; i++)
+			{
+				for (int j = 0; j < 3; j++)
+				{
+					grid[i][j] = 2;
+				}
+			}
 		}
 		else
 		{
