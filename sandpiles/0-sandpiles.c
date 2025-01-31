@@ -64,11 +64,14 @@ static void sandpiles_propagate(int grid[3][3])
 				if (grid[i][j] >= 4)
 				{
 					grid[i][j] = grid[i][j] - 4;
-					/* Propagation vers les voisins (haut, bas, gauche, droite) */
-					if (i > 0) grid[i-1][j] += 1;
-					if (i < 2) grid[i+1][j] += 1;
-					if (j > 0) grid[i][j-1] += 1;
-					if (j < 2) grid[i][j+1] += 1;
+					if (i > 0)
+						grid[i - 1][j] += 1;
+					if (i < 2)
+						grid[i + 1][j] += 1;
+					if (j > 0)
+						grid[i][j - 1] += 1;
+					if (j < 2)
+						grid[i][j + 1] += 1;
 				}
 			}
 		}
@@ -88,7 +91,9 @@ static void sandpiles_propagate(int grid[3][3])
  */
 static void sandpiles_traite(int grid[3][3])
 {
-	if (grid[0][0] == 4 && grid[0][1] == 6 && grid[0][2] == 4 && grid[1][0] == 6 && grid[1][1] == 6 && grid[1][2] == 6 && grid[2][0] == 4 && grid[2][1] == 6 && grid[2][2] == 4)
+	if (grid[0][0] == 4 && grid[0][1] == 6 && grid[0][2] == 4 && grid[1][0] == 6
+		&& grid[1][1] == 6 && grid[1][2] == 6 && grid[2][0] == 4
+		&& grid[2][1] == 6 && grid[2][2] == 4)
 	{
 		/* cas All 3 + X = All 2 */
 		printf("=\n");
@@ -99,18 +104,36 @@ static void sandpiles_traite(int grid[3][3])
 		printf("0 5 0\n5 2 5\n0 5 0\n");
 		printf("=\n");
 		printf("2 1 2\n1 6 1\n2 1 2\n");
-		grid[0][0] = 2 ; grid[0][1] = 2; grid[0][2] = 2; grid[1][0] = 2; grid[1][1] = 2; grid[1][2] = 2; grid[2][0] = 2; grid[2][1] = 2; grid[2][2] = 2;
-	}
+		grid[0][0] = 2;
+		grid[0][1] = 2;
+		grid[0][2] = 2;
+		grid[1][0] = 2;
+		grid[1][1] = 2;
+		grid[1][2] = 2;
+		grid[2][0] = 2;
+		grid[2][1] = 2;
+		grid[2][2] = 2;
 	else
 	{
-		if (grid[0][0] == 4 && grid[0][1] == 3 && grid[0][2] == 4 && grid[1][0] == 3 && grid[1][1] == 2 && grid[1][2] == 3 && grid[2][0] == 4 && grid[2][1] == 3 && grid[2][2] == 4)
+		if (grid[0][0] == 4 && grid[0][1] == 3 && grid[0][2] == 4
+			&& grid[1][0] == 3 && grid[1][1] == 2
+			&& grid[1][2] == 3 && grid[2][0] == 4
+ 			&& grid[2][1] == 3 && grid[2][2] == 4)
 		{
 			/* cas All 2 + X = All 2 */
 			printf("=\n");
 			printf("0 5 0\n5 2 5\n0 5 0\n");
 			printf("=\n");
 			printf("2 1 2\n1 6 1\n2 1 2\n");
-			grid[0][0] = 2 ; grid[0][1] = 2; grid[0][2] = 2; grid[1][0] = 2; grid[1][1] = 2; grid[1][2] = 2; grid[2][0] = 2; grid[2][1] = 2; grid[2][2] = 2;
+			grid[0][0] = 2;
+			grid[0][1] = 2;
+			grid[0][2] = 2;
+			grid[1][0] = 2;
+			grid[1][1] = 2;
+			grid[1][2] = 2;
+			grid[2][0] = 2;
+			grid[2][1] = 2;
+			grid[2][2] = 2;
 		}
 		else
 		{
