@@ -53,6 +53,7 @@ static int is_sandpiles_stable(int grid[3][3])
 static void sandpiles_propagate(int grid[3][3])
 {
 	int stable = 0;
+
 	while (!stable)
 	{
 		stable = 1;
@@ -62,14 +63,12 @@ static void sandpiles_propagate(int grid[3][3])
 			{
 				if (grid[i][j] >= 4)
 				{
-					int grains = grid[i][j] - 4;  // Diviser les grains
-					grid[i][j]  = grains;  // Rester avec le reste
-
+					grid[i][j] = grid[i][j] - 4;
 					/* Propagation vers les voisins (haut, bas, gauche, droite) */
-					if (i > 0) grid[i-1][j] += 1;  // Haut
-					if (i < 2) grid[i+1][j] += 1;  // Bas
-					if (j > 0) grid[i][j-1] += 1;  // Gauche
-					if (j < 2) grid[i][j+1] += 1;  // Droite
+					if (i > 0) grid[i-1][j] += 1;
+					if (i < 2) grid[i+1][j] += 1;
+					if (j > 0) grid[i][j-1] += 1;
+					if (j < 2) grid[i][j+1] += 1;
 				}
 			}
 		}
