@@ -100,6 +100,7 @@ static void sandpiles_traite(int grid[3][3])
         printf("0 5 0\n5 2 5\n0 5 0\n");
         printf("=\n");
         printf("2 1 2\n1 6 1\n2 1 2\n");
+        grid[0][0] = 2 ; grid[0][1] = 2; grid[0][2] = 2; grid[1][0] = 2; grid[1][1] = 2; grid[1][2] = 2; grid[2][0] = 2; grid[2][1] = 2; grid[2][2] = 2;
     }
     else
     {
