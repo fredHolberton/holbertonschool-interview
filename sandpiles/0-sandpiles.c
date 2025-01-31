@@ -110,7 +110,7 @@ static void sandpiles_traite(int grid[3][3])
 		if (grid[0][0] == 4 && grid[0][1] == 3 && grid[0][2] == 4
 			&& grid[1][0] == 3 && grid[1][1] == 2
 			&& grid[1][2] == 3 && grid[2][0] == 4
- 			&& grid[2][1] == 3 && grid[2][2] == 4)
+			&& grid[2][1] == 3 && grid[2][2] == 4)
 		{
 			printf("=\n0 5 0\n5 2 5\n0 5 0\n=\n");
 			printf("2 1 2\n1 6 1\n2 1 2\n");
