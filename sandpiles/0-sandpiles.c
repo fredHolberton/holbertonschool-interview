@@ -27,6 +27,7 @@ static void print_grid(int grid[3][3])
  * is_sandpiles_stable - return 1 if the 3x3 grid is stable
  * @grid: 3x3 grid
  *
+ * Return: 1 if the sandpile is stable, other wase return 0
  */
 static int is_sandpiles_stable(int grid[3][3])
 {
