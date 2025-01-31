@@ -30,19 +30,19 @@ static void print_grid(int grid[3][3])
  */
 static int is_sandpiles_stable(int grid[3][3])
 {
-    int stable = 1;
+	int stable = 1;
 
-    for (int i = 0; i < 3; i++)
-    {
-        for (int j = 0; j < 3; j++)
-        {
-            if (grid[i][j] >= 4)
-            {
-                stable = 0;
-            }
-        }
-    }
-    return stable;
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (grid[i][j] >= 4)
+			{
+				stable = 0;
+			}
+		}
+	}
+	return stable;
 }
 
 /**
