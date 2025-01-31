@@ -114,7 +114,6 @@ static void sandpiles_traite(int grid[3][3])
 		{
 			printf("=\n0 5 0\n5 2 5\n0 5 0\n=\n");
 			printf("2 1 2\n1 6 1\n2 1 2\n");
-			grid[0][0] = 2;
 			for (int i = 0; i < 3; i++)
 			{
 				for (int j = 0; j < 3; j++)
