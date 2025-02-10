@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+""" Module : Log Parsing """
+
+
 import sys
 import re
 
@@ -8,7 +11,7 @@ status_codes = {'200': 0, '301': 0, '400': 0, '401': 0, '403': 0, '404': 0, '405
 file_size = 0
 
 while True:
-    for i in range(3):
+    for i in range(10):
         line = sys.stdin.readline()
         line = line.strip()
 
