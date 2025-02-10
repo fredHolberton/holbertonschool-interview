@@ -7,7 +7,16 @@ import re
 
 reg_IP = r'^([0-9]{1,3}\.){3}[0-9]{1,3}?$'
 datetime_regex = r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}$'
-status_codes = {'200': 0, '301': 0, '400': 0, '401': 0, '403': 0, '404': 0, '405': 0, '500': 0}
+status_codes = {
+    '200': 0,
+    '301': 0, 
+    '400': 0, 
+    '401': 0, 
+    '403': 0, 
+    '404': 0, 
+    '405': 0, 
+    '500': 0
+}
 file_size = 0
 
 while True:
@@ -25,7 +34,7 @@ while True:
                 end_line = apres
                 avant, separateur, apres = end_line.partition('" ')
                 if avant == 'GET /projects/260 HTTP/1.1': 
-                    # la chaine "GET /projects/260 HTTP/1.1" est trouvée, on continue
+                    # la chaine "GET /projects/260 HTTP/1.1" est trouvée
                     end_line = apres
                     avant, separateur, apres = end_line.partition(' ')
                     if (avant in status_codes) and apres.isdigit():
