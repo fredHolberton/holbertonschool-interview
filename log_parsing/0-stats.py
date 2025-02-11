@@ -4,7 +4,7 @@
 
 import sys
 import re
-import os
+import select
 
 reg_IP = r'^([0-9]{1,3}\.){3}[0-9]{1,3}?$'
 datetime_regex = r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}$'
@@ -19,21 +19,24 @@ status_codes = {
     '500': 0
 }
 file_size = 0
+line_count = 0
 
 try:        
     while True:  
-        for i in range (10):
-            # Si plus de ligne dans stdin, on affiche le résultat
-            if os.isatty(sys.stdin.fileno()):
+        rlist, _, _ = select.select([sys.stdin], [], [], 1)
+        if rlist:
+            # il y a encore des lignes dans stdin                   
+            line = sys.stdin.read().strip()
+            
+            if not line:
+                # plus d'infos dans stdin
                 print(f"File size: {file_size}")
                 for cle, valeur in status_codes.items():
                     if valeur != 0:
-                        print(f"{cle}: {valeur}")
+                        print(f"{cle}: {valeur}")   
                 sys.exit(0)
-                    
-            line = sys.stdin.read().strip()
-            if not line:
-                break
+                 
+            line_count += 1
             avant, separateur, apres = line.partition(' - [')
             if re.match(reg_IP, avant):
                 # une adresse ip est trouvée, on continue
@@ -50,15 +53,13 @@ try:
                         if (avant in status_codes) and apres.isdigit():
                             status_codes[avant] += 1
                             file_size += int(apres)
-
                             
-        print(f"File size: {file_size}")
-        for cle, valeur in status_codes.items():
-            if valeur != 0:
-                print(f"{cle}: {valeur}")
-        if file_size == 0:
-           sys.exit(0)
-            
+            if line_count % 10 == 0:
+                print(f"File size: {file_size}")
+                for cle, valeur in status_codes.items():
+                    if valeur != 0:
+                        print(f"{cle}: {valeur}")                
+               
 except KeyboardInterrupt:
     print(f"File size: {file_size}")
     for cle, valeur in status_codes.items():
