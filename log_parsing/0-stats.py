@@ -23,7 +23,7 @@ line_count = 0
 
 try:        
     while True:  
-        rlist, _, _ = select.select([sys.stdin], [], [], 30)
+        rlist, _, _ = select.select([sys.stdin], [], [], 3)
         if rlist:
             # il y a encore des lignes dans stdin                   
             line = sys.stdin.read().strip()
