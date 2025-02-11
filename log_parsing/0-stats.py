@@ -58,7 +58,12 @@ try:
                 print(f"File size: {file_size}")
                 for cle, valeur in status_codes.items():
                     if valeur != 0:
-                        print(f"{cle}: {valeur}")                
+                        print(f"{cle}: {valeur}") 
+        
+        else:
+            if line_count == 0:
+                print(f"File size: 0")
+                sys.exit(0)        
                
 except KeyboardInterrupt:
     print(f"File size: {file_size}")
