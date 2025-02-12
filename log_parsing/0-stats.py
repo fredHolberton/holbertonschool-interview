@@ -7,7 +7,9 @@ import sys
 
 def main():
     # Dictionnaire pour les statistiques
-    status_codes = {'200': 0, '301': 0, '400': 0, '401': 0, '403': 0, '404': 0, '405': 0, '500': 0}
+    status_codes = {
+        '200': 0, '301': 0, '400': 0, '401': 0,
+        '403': 0, '404': 0, '405': 0, '500': 0}
     file_size = 0
     line_count = 0
 
@@ -43,6 +45,7 @@ def main():
         for cle, valeur in status_codes.items():
             if valeur != 0:
                 print(f"{cle}: {valeur}")
+
 
 if __name__ == "__main__":
     main()
