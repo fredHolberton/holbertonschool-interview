@@ -34,13 +34,12 @@ def main():
             # Ne rien faire si la ligne est vide
             if not line:
                 continue
-
-            # Incrémenter le compteur de lignes
-            line_count += 1
                 
             # Extraire les données de la ligne à l'aide de l'expression régulière
             match = log_pattern.match(line)
             if match:
+                # Incrémenter le compteur de lignes
+                line_count += 1
                 status = match.group("status")
                 size = match.group("size")
                 if (status in status_codes) and size.isdigit():
