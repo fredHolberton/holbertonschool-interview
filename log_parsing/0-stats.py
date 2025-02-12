@@ -51,13 +51,13 @@ def main():
                 
                 line_count_OK += 1
 
-                # Afficher les statistiques cumulées tous les 10 logs
-                if line_count % 10 == 0:
-                    print(f"File size: {file_size}")
-                    for cle, valeur in status_codes.items():
-                        if valeur != 0:
-                            print(f"{cle}: {valeur}")
-                    line_count_OK = 0
+            # Afficher les statistiques cumulées tous les 10 logs
+            if line_count % 10 == 0:
+                print(f"File size: {file_size}")
+                for cle, valeur in status_codes.items():
+                    if valeur != 0:
+                        print(f"{cle}: {valeur}")
+                line_count_OK = 0
         
 
     except KeyboardInterrupt:
