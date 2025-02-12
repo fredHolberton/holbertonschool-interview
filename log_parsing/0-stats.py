@@ -20,7 +20,6 @@ def main():
     }
     file_size = 0
     line_count = 0
-    line_count_OK = 0
 
     # Expression régulière pour extraire les informations du log
     log_pattern = re.compile(
@@ -49,15 +48,13 @@ def main():
                     # Mettre à jour les statistiques
                     status_codes[status] += 1
                     file_size += size           
-                    line_count_OK += 1
 
-            # Afficher les statistiques cumulées tous les 10 logs
-            if line_count % 10 == 0:
-                print(f"File size: {file_size}")
-                for cle, valeur in status_codes.items():
-                    if valeur != 0:
-                        print(f"{cle}: {valeur}")
-                line_count_OK = 0
+                # Afficher les statistiques cumulées tous les 10 logs
+                if line_count % 10 == 0:
+                    print(f"File size: {file_size}")
+                    for cle, valeur in status_codes.items():
+                        if valeur != 0:
+                            print(f"{cle}: {valeur}")
         
 
     except KeyboardInterrupt:
@@ -65,7 +62,7 @@ def main():
         pass
 
     # Affichage des statistiques finales à la fin de l'exécution
-    if (line_count_OK != 0) or line_count == 0:
+    if (line_count % 10 != 0) or line_count == 0:
         print(f"File size: {file_size}")
         for cle, valeur in status_codes.items():
             if valeur != 0:
