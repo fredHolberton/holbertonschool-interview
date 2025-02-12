@@ -54,13 +54,14 @@ def main():
                     for cle, valeur in status_codes.items():
                         if valeur != 0:
                             print(f"{cle}: {valeur}")
+        
 
     except KeyboardInterrupt:
         # Gérer l'interruption (par exemple, Ctrl+C)
         pass
 
     # Affichage des statistiques finales à la fin de l'exécution
-    if line_count % 10 != 0:
+    if (line_count % 10 != 0) or line_count ==0:
         print(f"File size: {file_size}")
         for cle, valeur in status_codes.items():
             if valeur != 0:
