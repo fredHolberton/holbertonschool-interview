@@ -43,13 +43,13 @@ def main():
             match = log_pattern.match(line)
             if match:
                 status = match.group("status")
-                size = int(match.group("size"))
-
-                # Mettre à jour les statistiques
-                status_codes[status] += 1
-                file_size += size
-                
-                line_count_OK += 1
+                size = match.group("size")
+                if (status in status_codes) and size.isdigit():
+                    size = int(size)
+                    # Mettre à jour les statistiques
+                    status_codes[status] += 1
+                    file_size += size           
+                    line_count_OK += 1
 
             # Afficher les statistiques cumulées tous les 10 logs
             if line_count % 10 == 0:
