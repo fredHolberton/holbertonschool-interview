@@ -6,6 +6,8 @@ import sys
 import re
 from collections import defaultdict
 
+log_pattern = r'^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(:\d{1,5})? - \[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(\.\d{6})?)\] "GET /projects/260 HTTP/1.1" (?P<status>\d{3}) (?P<size>\d+)\.$'
+
 def main():
     # Dictionnaire pour les statistiques
     status_codes = {
@@ -22,8 +24,9 @@ def main():
     line_count = 0
 
     # Expression régulière pour extraire les informations du log
+
     log_pattern = re.compile(
-        r"(?P<ip>\d+\.\d+\.\d+\.\d+) - \[.*\] \"GET /projects/\d+ HTTP/1.1\" (?P<status>\d{3}) (?P<size>\d+)"
+        r"^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(:\d{1,5})? - \[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(\.\d{6})?)\] \"GET /projects/260 HTTP/1.1\" (?P<status>\d{3}) (?P<size>\d+)"  
     )
 
     # Traitement en temps réel des lignes depuis stdin
