@@ -35,6 +35,9 @@ def main():
             if not line:
                 continue
 
+            # Incrémenter le compteur de lignes
+            line_count += 1
+                
             # Extraire les données de la ligne à l'aide de l'expression régulière
             match = log_pattern.match(line)
             if match:
@@ -44,9 +47,6 @@ def main():
                 # Mettre à jour les statistiques
                 status_codes[status] += 1
                 file_size += size
-
-                # Incrémenter le compteur de lignes
-                line_count += 1
 
                 # Afficher les statistiques cumulées tous les 10 logs
                 if line_count % 10 == 0:
