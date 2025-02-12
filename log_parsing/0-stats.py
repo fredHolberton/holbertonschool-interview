@@ -3,10 +3,6 @@
 
 
 import sys
-import re
-from collections import defaultdict
-
-log_pattern = r'^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(:\d{1,5})? - \[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(\.\d{6})?)\] "GET /projects/260 HTTP/1.1" (?P<status>\d{3}) (?P<size>\d+)\.$'
 
 def main():
     # Dictionnaire pour les statistiques
@@ -23,42 +19,28 @@ def main():
     file_size = 0
     line_count = 0
 
-    # Expression régulière pour extraire les informations du log
-
-    log_pattern = re.compile(
-        r"^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(:\d{1,5})? - \[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(\.\d{6})?)\] \"GET /projects/260 HTTP/1.1\" (?P<status>\d{3}) (?P<size>\d+)"  
-    )
-
     # Traitement en temps réel des lignes depuis stdin
     try:
         for line in sys.stdin:
-            line = line.strip()  # Enlever les espaces et retours à la ligne
-
-            # Ne rien faire si la ligne est vide
-            if not line:
-                continue
-                
-            # Extraire les données de la ligne à l'aide de l'expression régulière
-            match = log_pattern.match(line)
-            if match:
-                # Incrémenter le compteur de lignes
-                line_count += 1
-                status = match.group("status")
-                size = match.group("size")
-                if (status in status_codes) and size.isdigit():
-                    size = int(size)
-                    # Mettre à jour les statistiques
+            words = line.split()
+            if len(words) >= 2:
+                status = words[-2]
+                try:
+                    size = int(words[-1])
+                    file_size += size
+                except ValueError:
+                    continue
+                if status in status_codes:
                     status_codes[status] += 1
-                    file_size += size           
 
-                # Afficher les statistiques cumulées tous les 10 logs
+                line_count += 1
+
                 if line_count % 10 == 0:
                     print(f"File size: {file_size}")
                     for cle, valeur in status_codes.items():
                         if valeur != 0:
                             print(f"{cle}: {valeur}")
         
-
     except KeyboardInterrupt:
         # Gérer l'interruption (par exemple, Ctrl+C)
         pass
