@@ -4,73 +4,67 @@
 
 import sys
 import re
-import select
+from collections import defaultdict
 
-reg_IP = r'^([0-9]{1,3}\.){3}[0-9]{1,3}?$'
-datetime_regex = r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}$'
-status_codes = {
-    '200': 0,
-    '301': 0, 
-    '400': 0, 
-    '401': 0, 
-    '403': 0, 
-    '404': 0, 
-    '405': 0, 
-    '500': 0
-}
-file_size = 0
-line_count = 0
+def main():
+    # Dictionnaire pour les statistiques
+    status_codes = {
+        '200': 0,
+        '301': 0, 
+        '400': 0, 
+        '401': 0, 
+        '403': 0, 
+        '404': 0, 
+        '405': 0, 
+        '500': 0
+    }
+    file_size = 0
+    line_count = 0
 
-try:        
-    while True:  
-        rlist, _, _ = select.select([sys.stdin], [], [], 0.1)
-        if rlist:
-            # il y a encore des lignes dans stdin                   
-            line = sys.stdin.read().strip()
-            
+    # Expression régulière pour extraire les informations du log
+    log_pattern = re.compile(
+        r"(?P<ip>\d+\.\d+\.\d+\.\d+) - \[.*\] \"GET /projects/\d+ HTTP/1.1\" (?P<status>\d{3}) (?P<size>\d+)"
+    )
+
+    # Traitement en temps réel des lignes depuis stdin
+    try:
+        for line in sys.stdin:
+            line = line.strip()  # Enlever les espaces et retours à la ligne
+
+            # Ne rien faire si la ligne est vide
             if not line:
-                # plus d'infos dans stdin
-                print(f"File size: {file_size}")
-                for cle, valeur in status_codes.items():
-                    if valeur != 0:
-                        print(f"{cle}: {valeur}")   
-                sys.exit(0)
-                 
-            line_count += 1
-            avant, separateur, apres = line.partition(' - [')
-            if re.match(reg_IP, avant):
-                # une adresse ip est trouvée, on continue
-                end_line = apres
-                avant, separateur, apres = end_line.partition('] "')
-                if re.match(datetime_regex, avant):
-                    # une date est trouvée, on continue
-                    end_line = apres
-                    avant, separateur, apres = end_line.partition('" ')
-                    if avant == 'GET /projects/260 HTTP/1.1': 
-                        # la chaine "GET /projects/260 HTTP/1.1" est trouvée
-                        end_line = apres
-                        avant, separateur, apres = end_line.partition(' ')
-                        if (avant in status_codes) and apres.isdigit():
-                            status_codes[avant] += 1
-                            file_size += int(apres)
-                            
-                            if line_count % 10 == 0:
-                                print(f"File size: {file_size}")
-                                for cle, valeur in status_codes.items():
-                                    if valeur != 0:
-                                        print(f"{cle}: {valeur}") 
-        
-        else:
-            print(f"File size: {file_size}")
-            for cle, valeur in status_codes.items():
-                if valeur != 0:
-                    print(f"{cle}: {valeur}")
-            if line_count == 0:
-                sys.exit(0)        
-               
-except KeyboardInterrupt:
-    print(f"File size: {file_size}")
-    for cle, valeur in status_codes.items():
-        if valeur != 0:
-            print(f"{cle}: {valeur}")
+                continue
 
+            # Extraire les données de la ligne à l'aide de l'expression régulière
+            match = log_pattern.match(line)
+            if match:
+                status = match.group("status")
+                size = int(match.group("size"))
+
+                # Mettre à jour les statistiques
+                status_codes[status] += 1
+                file_size += size
+
+                # Incrémenter le compteur de lignes
+                line_count += 1
+
+                # Afficher les statistiques cumulées tous les 10 logs
+                if line_count % 10 == 0:
+                    print(f"File size: {file_size}")
+                    for cle, valeur in status_codes.items():
+                        if valeur != 0:
+                            print(f"{cle}: {valeur}")
+
+    except KeyboardInterrupt:
+        # Gérer l'interruption (par exemple, Ctrl+C)
+        pass
+
+    # Affichage des statistiques finales à la fin de l'exécution
+    if line_count % 10 != 0:
+        print(f"File size: {file_size}")
+        for cle, valeur in status_codes.items():
+            if valeur != 0:
+                print(f"{cle}: {valeur}")
+
+if __name__ == "__main__":
+    main()
