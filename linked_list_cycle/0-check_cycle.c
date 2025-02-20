@@ -9,27 +9,15 @@
  */
 int check_cycle(listint_t *list)
 {
-	if (list == NULL)
-		return (0);
-	else
-	{
+	listint_t *current = list;
+	listint_t *next = list;
 		
-		int file[1024];
-		listint_t *current;
-		int nbElt = 0;
-
-		current = list;
-		while (current->next != NULL)
-		{
-			for (int i = 0; i < nbElt; i++)
-			{
-				if (file[i] == current->next->n)
-					return (1);
-			}
-			file[nbElt] = current->next->n;
-			current = current->next;
-			nbElt += 1;
-		}
+	while (next != NULL && next->next != NULL)
+	{
+		current = current->next;
+		next = next->next->next;
+		if (current == next)
+			return (1);
 	}
 	return (0);
 }
