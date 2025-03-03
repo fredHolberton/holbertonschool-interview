@@ -19,16 +19,16 @@ def validUTF8(data):
         elif (byte >> 4) == 0b1110:
             # 3-byte character: 1110xxxx 10xxxxxx 10xxxxxx
             if (i + 2 >= len(data) or
-                (data[i + 1] % 256 >> 6) != 0b10 or
-                (data[i + 2] % 256 >> 6) != 0b10):
+            (data[i + 1] % 256 >> 6) != 0b10 or
+            (data[i + 2] % 256 >> 6) != 0b10):
                 return False
             i += 3
         elif (byte >> 3) == 0b11110:
             # 4-byte character: 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
             if (i + 3 >= len(data) or
-                (data[i + 1] % 256 >> 6) != 0b10 or
-                (data[i + 2] % 256 >> 6) != 0b10 or
-                (data[i + 3] % 256 >> 6) != 0b10):
+            (data[i + 1] % 256 >> 6) != 0b10 or
+            (data[i + 2] % 256 >> 6) != 0b10 or
+            (data[i + 3] % 256 >> 6) != 0b10):
                 return False
             i += 4
         else:
