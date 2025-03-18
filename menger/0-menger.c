@@ -33,6 +33,7 @@ static void draw_sponge(int level, int size, char **sponge)
 			{
 				int x = i % small_size;
 				int y = j % small_size;
+
 				sponge[i][j] = small_sponge[x][y];
 			}
 		}
@@ -53,11 +54,11 @@ void menger(int level)
 
 	int size = pow(3, level);
 	char **sponge = (char **)malloc(size * sizeof(char *));
-	
+
 	for (int i = 0; i < size; i++)
 		sponge[i] = (char *)malloc(size * sizeof(char));
 	draw_sponge(level, size, sponge);
-    	for (int i = 0; i < size; i++)
+	for (int i = 0; i < size; i++)
 	{
 		for (int j = 0; j < size; j++)
 			printf("%c", sponge[i][j]);
