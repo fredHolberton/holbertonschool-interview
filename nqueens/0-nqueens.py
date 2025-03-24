@@ -34,7 +34,7 @@ def solve_nqueens(board, row, N):
             board[row] = -1  # Backtrack
 
 def main():
-    """Main function to read input and solve the N queens problem."""
+    """Main function to read input and solve the N  queens problem."""
     if len(sys.argv) != 2:
         print("Usage: nqueens N")
         sys.exit(1)
