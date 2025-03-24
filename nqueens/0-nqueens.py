@@ -15,4 +15,4 @@ if a < 4:
     sys.exit(1)
     
 print("Command OK")
-sys.exit
+sys.exit(0)
