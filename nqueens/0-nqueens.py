@@ -23,6 +23,7 @@ def is_safe(board, row, col):
             return False
     return True
 
+
 def solve_nqueens(board, row, N):
     """Recursively solve the N queens problem."""
     if row == N:
@@ -59,4 +60,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
