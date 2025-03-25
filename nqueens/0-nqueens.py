@@ -4,12 +4,14 @@
 
 import sys
 
+
 def print_solution(board):
     """Print a single solution in the form of coordinates."""
     solution = []
     for row, col in enumerate(board):
         solution.append([row, col])
     print(solution)
+
 
 def is_safe(board, row, col):
     """Check if it's safe to place a queen at (row, col)."""
@@ -33,12 +35,13 @@ def solve_nqueens(board, row, N):
             solve_nqueens(board, row + 1, N)
             board[row] = -1  # Backtrack
 
+
 def main():
     """Main function to read input and solve the N  queens problem."""
     if len(sys.argv) != 2:
         print("Usage: nqueens N")
         sys.exit(1)
-    
+
     try:
         N = int(sys.argv[1])
     except ValueError:
@@ -52,6 +55,7 @@ def main():
     # Initialize the board
     board = [-1] * N
     solve_nqueens(board, 0, N)
+
 
 if __name__ == "__main__":
     main()
