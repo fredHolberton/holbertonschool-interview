@@ -12,13 +12,13 @@
 avl_t *sorted_array_to_avl(int *array, size_t size)
 {
 	if (size == 0)
-		return NULL;
+		return (NULL);
 
-	size_t mid = (size % 2 ==0) ? (size / 2 - 1) : (size / 2);
+	size_t mid = (size % 2 == 0) ? (size / 2 - 1) : (size / 2);
 	avl_t *root = (avl_t *)malloc(sizeof(avl_t));
 
 	if (!root)
-		return NULL;
+		return (NULL);
 	root->n = array[mid];
 	root->parent = NULL;
 	root->left = sorted_array_to_avl(array, mid);
@@ -27,7 +27,7 @@ avl_t *sorted_array_to_avl(int *array, size_t size)
 		root->left->parent = root;
 	if (root->right)
 		root->right->parent = root;
-	return root;
+	return (root);
 }
 
 
