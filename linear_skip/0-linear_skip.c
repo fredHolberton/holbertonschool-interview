@@ -16,7 +16,7 @@ skiplist_t *linear_skip(skiplist_t *list, int value)
 		return (NULL);
 
 	/* Traverse the skip list using the express lane */
-	while (node && node->express)
+	while (node->express)
 	{
 		express_node = node->express;
 		/* Print the current node value */
