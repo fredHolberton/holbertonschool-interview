@@ -42,10 +42,10 @@ skiplist_t *linear_skip(skiplist_t *list, int value)
 		printf(msg1, current->index, current->n);
 		if (current->n == value)
 		{
-			return current;
+			return (current);
 		}
 		current = current->next;
 	}
-	return NULL;
+	return (NULL);
 }
 
