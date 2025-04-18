@@ -32,4 +32,3 @@ request(url, (error, response, body) => {
   };
   printCharacters(0);
 });
-
