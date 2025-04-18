@@ -1,44 +1,60 @@
 #!/usr/bin/node
-const request = require('request');
+const https = require('https');
 
-const movieId = process.argv[2];
+function getJson(url) {
+    return new Promise((resolve, reject) => {
+        https.get(url, (resp) => {
+            let data = '';
 
-if (!movieId) {
-  console.error('Please provide a movie ID as a positional argument.');
-  process.exit(1);
+            // A chunk of data has been received.
+            resp.on('data', (chunk) => {
+                data += chunk;
+            });
+
+            // The whole response has been received.
+            resp.on('end', () => {
+                try {
+                    const jsonData = JSON.parse(data);
+                    resolve(jsonData);
+                } catch (error) {
+                    reject(new Error('Failed to parse JSON'));
+                }
+            });
+
+        }).on('error', (err) => {
+            reject(new Error(`Request failed: ${err.message}`));
+        });
+    });
 }
 
-const filmUrl = `https://swapi.dev/api/films/${movieId}/`;
+async function getMovieCharacters(movieId) {
+    const baseUrl = `https://swapi.dev/api/films/${movieId}/`;
 
-request(filmUrl, (err, res, body) => {
-  if (err) {
-    console.error('Error fetching film:', err);
-    return;
-  }
+    try {
+        // Make a request to get the movie details
+        const movieData = await getJson(baseUrl);
+        const charactersUrls = movieData.characters;
 
-  if (res.statusCode !== 200) {
-    console.error(`Failed to fetch film. Status code: ${res.statusCode}`);
-    return;
-  }
+        // Iterate over each character URL and get the character name
+        for (const characterUrl of charactersUrls) {
+            try {
+                const characterData = await getJson(characterUrl);
+                console.log(characterData.name);
+            } catch (error) {
+                console.error(`Failed to retrieve character data from ${characterUrl}: ${error.message}`);
+            }
+        }
+    } catch (error) {
+        console.error(`Failed to retrieve movie data for ID ${movieId}: ${error.message}`);
+    }
+}
 
-  const filmData = JSON.parse(body);
-  const characters = filmData.characters;
+// Get the movie ID from command line arguments
+const movieId = process.argv[2];
+if (!movieId) {
+    console.log('Usage: node 0-starwars_characters.js <movie_id>');
+    process.exit(1);
+}
 
-  // Fetch character names in order
-  characters.forEach((url) => {
-    request(url, (charErr, charRes, charBody) => {
-      if (charErr) {
-        console.error('Error fetching character:', charErr);
-        return;
-      }
-
-      if (charRes.statusCode === 200) {
-        const character = JSON.parse(charBody);
-        console.log("character.name");
-      } else {
-        console.error(`Failed to fetch character. Status code: ${charRes.statusCode}`);
-      }
-    });
-  });
-});
+getMovieCharacters(movieId);
 
