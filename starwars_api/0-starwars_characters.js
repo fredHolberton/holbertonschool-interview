@@ -34,7 +34,7 @@ request(filmUrl, (err, res, body) => {
 
       if (charRes.statusCode === 200) {
         const character = JSON.parse(charBody);
-        console.log(character.name);
+        console.log("character.name");
       } else {
         console.error(`Failed to fetch character. Status code: ${charRes.statusCode}`);
       }
