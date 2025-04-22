@@ -2,9 +2,6 @@
 """ Module : Rain """
 
 
-import sys
-
-
 def rain(walls):
     """Return: Integer indicating total amount of rainwater retained."""
     if not walls:
