@@ -22,6 +22,7 @@ void sift_down(int *array, size_t size, size_t root, size_t end)
 	if (largest != root)
 	{
 		int temp = array[root];
+
 		array[root] = array[largest];
 		array[largest] = temp;
 		print_array(array, size);
