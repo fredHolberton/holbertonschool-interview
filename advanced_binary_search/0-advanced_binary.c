@@ -54,7 +54,7 @@ int binary_search_recursive(int *array, int left, int right, int value)
 	}
 	else
 	{
-		return (binary_search_recursive(array, left, mid - 1, value));
+		return (binary_search_recursive(array, left, mid, value));
 	}
 }
 
