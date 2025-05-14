@@ -5,13 +5,8 @@ import requests
 import re
 
 def count_words(subreddit, word_list, after=None, counts=None):
-     """
-        Recursively count occurrences of keywords in Reddit hot article titles.
-        subreddit: The subreddit to query.
-        word_list: The list of keywords to count.
-        after: Used for pagination. If None, this is the first call to the function.
-        count_dict: Tracks the count of each keyword across recursive calls.
-    """
+    """ recursive function that queries the Reddit API """
+
     if counts is None:
         # Normalize word list to lowercase and handle duplicates
         unique_words = sorted(set(word.lower() for word in word_list))
