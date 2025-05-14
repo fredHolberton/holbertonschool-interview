@@ -4,6 +4,7 @@
 import re
 import requests
 
+
 def count_words(subreddit, word_list, after=None, counts=None):
     """ recursive function that queries the Reddit API """
 
@@ -18,8 +19,12 @@ def count_words(subreddit, word_list, after=None, counts=None):
     if after:
         params['after'] = after
 
-    response = requests.get(url, headers=headers, \
-    params=params, allow_redirects=False)
+    response = requests.get(
+        url,
+        headers=headers,
+        params=params,
+        allow_redirects=False
+    )
 
     # Invalid subreddit (404 or redirect)
     if response.status_code != 200:
