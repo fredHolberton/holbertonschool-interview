@@ -7,8 +7,9 @@ import re
 def count_words(subreddit, word_list, after=None, counts=None):
     if counts is None:
         # Normalize word list to lowercase and handle duplicates
-        counts = {word.lower(): 0 for word in word_list}
-        word_list = list(counts.keys())
+        unique_words = sorted(set(word.lower() for word in word_list))
+        counts = {word: 0 for word in unique_words}
+        word_list = unique_words
     url = f"https://www.reddit.com/r/{subreddit}/hot.json"
     headers = {'User-Agent': 'recursive-keyword-counter'}
     params = {'limit': 100}
