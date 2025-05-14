@@ -1,47 +1,41 @@
 #!/usr/bin/python3
 """ Module : count_it """
-import praw
+
+import requests
 import re
-from collections import defaultdict
 
 def count_words(subreddit, word_list, after=None, counts=None):
-    """
-    Recursively counts occurrences of keywords in hot post titles of a subreddit.
-
-    Parameters:
-        subreddit (str): The name of the subreddit.
-        word_list (list): List of keywords to count.
-        after (str): The 'after' parameter for pagination.
-        counts (dict): Accumulator for keyword counts.
-    """
     if counts is None:
-        counts = defaultdict(int)
+        # Normalize word list to lowercase and handle duplicates
+        counts = {word.lower(): 0 for word in word_list}
+        word_list = list(counts.keys())
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
+    headers = {'User-Agent': 'recursive-keyword-counter'}
+    params = {'limit': 100}
+    if after:
+        params['after'] = after
 
-    # Initialize PRAW with your Reddit API credentials
-    reddit = praw.Reddit(
-        client_id='YOUR_CLIENT_ID',
-        client_secret='YOUR_CLIENT_SECRET',
-        user_agent='YOUR_USER_AGENT'
-    )
+    response = requests.get(url, headers=headers, params=params, allow_redirects=False)
 
-    # Fetch the hot posts from the subreddit
-    hot_posts = reddit.subreddit(subreddit).hot(limit=100, params={'after': after})
+    # Invalid subreddit (404 or redirect)
+    if response.status_code != 200:
+        return
 
-    # Process each post
-    for post in hot_posts:
-        title = post.title.lower()
-        # Count occurrences of each keyword in the title
+    data = response.json().get('data', {})
+    posts = data.get('children', [])
+    after = data.get('after', None)
+
+    for post in posts:
+        title = post['data']['title'].lower()
+        words = re.findall(r'\b\w+\b', title)
         for word in word_list:
-            # Use regex to match whole words, ignoring case
-            count = len(re.findall(r'\b' + re.escape(word.lower()) + r'\b', title))
-            counts[word.lower()] += count
+            counts[word] += words.count(word)
 
-    # Check if there are more posts to fetch
-    if hot_posts.after:
-        count_words(subreddit, word_list, after=hot_posts.after, counts=counts)
+    if after:
+        return count_words(subreddit, word_list, after, counts)
     else:
-        # Sort and print the results
-        sorted_counts = sorted(counts.items(), key=lambda x: (-x[1], x[0]))
+        # Filter out 0 counts, sort by count desc, then word asc
+        filtered = {k: v for k, v in counts.items() if v > 0}
+        sorted_counts = sorted(filtered.items(), key=lambda x: (-x[1], x[0]))
         for word, count in sorted_counts:
-            if count > 0:
-                print(f"{word}: {count}")
+            print(f"{word}: {count}")
