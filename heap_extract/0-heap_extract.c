@@ -9,8 +9,8 @@
 size_t binary_tree_size(const binary_tree_t *tree)
 {
 	if (!tree)
-		return 0;
-	return 1 + binary_tree_size(tree->left) + binary_tree_size(tree->right);
+		return (0);
+	return (1 + binary_tree_size(tree->left) + binary_tree_size(tree->right));
 }
 
 /**
@@ -25,12 +25,12 @@ binary_tree_t *get_last_node(binary_tree_t *root, size_t index, size_t target)
 	binary_tree_t *node = NULL;
 
 	if (!root)
-		return NULL;
+		return (NULL);
 	if (index == target)
-		return root;
+		return (root);
 	node = get_last_node(root->left, 2 * index + 1, target);
 	if (node)
-		return node;
+		return (node);
 	return get_last_node(root->right, 2 * index + 2, target);
 }
 
@@ -67,7 +67,7 @@ void heapify_down(heap_t *root)
 int heap_extract(heap_t **root)
 {
 	if (!root || !*root)
-		return 0;
+		return (0);
 
 	int value = (*root)->n;
 	size_t size = binary_tree_size(*root);
@@ -76,7 +76,7 @@ int heap_extract(heap_t **root)
 	{
 		free(*root);
 		*root = NULL;
-		return value;
+		return (value);
 	}
 
 	// Get last node by level-order index
@@ -96,5 +96,5 @@ int heap_extract(heap_t **root)
 	// Restore heap property
 	heapify_down(*root);
 
-	return value;
+	return (value);
 }
