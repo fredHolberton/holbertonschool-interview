@@ -31,7 +31,7 @@ binary_tree_t *get_last_node(binary_tree_t *root, size_t index, size_t target)
 	node = get_last_node(root->left, 2 * index + 1, target);
 	if (node)
 		return (node);
-	return get_last_node(root->right, 2 * index + 2, target);
+	return (get_last_node(root->right, 2 * index + 2, target));
 }
 
 /**
