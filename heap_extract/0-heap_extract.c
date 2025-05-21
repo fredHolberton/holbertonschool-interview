@@ -79,13 +79,13 @@ int heap_extract(heap_t **root)
 		return (value);
 	}
 
-	// Get last node by level-order index
+	/* Get last node by level-order index */
 	heap_t *last = get_last_node(*root, 0, size - 1);
 
-	// Swap last node’s value into root
+	/* Swap last node’s value into root */
 	(*root)->n = last->n;
 
-	// Remove the last node
+	/* Remove the last node */
 	if (last->parent->left == last)
 		last->parent->left = NULL;
 	else
@@ -93,7 +93,7 @@ int heap_extract(heap_t **root)
 
 	free(last);
 
-	// Restore heap property
+	/* Restore heap property */
 	heapify_down(*root);
 
 	return (value);
