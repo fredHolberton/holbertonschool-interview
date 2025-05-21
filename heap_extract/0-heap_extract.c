@@ -1,8 +1,6 @@
 #include <stdlib.h>
 #include "binary_trees.h"
 
-typedef struct binary_tree_s heap_t;
-
 /**
  * binary_tree_size - Measures the size of a binary tree
  * @tree: Pointer to the root node
