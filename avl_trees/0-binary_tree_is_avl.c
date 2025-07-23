@@ -9,7 +9,7 @@
  */
 static int max(int a, int b)
 {
-    return (a > b ? a : b);
+	return (a > b ? a : b);
 }
 
 /**
@@ -19,9 +19,9 @@ static int max(int a, int b)
  */
 static int tree_height(const binary_tree_t *tree)
 {
-    if (!tree)
-        return (-1);
-    return (1 + max(tree_height(tree->left), tree_height(tree->right)));
+	if (!tree)
+		return (-1);
+	return (1 + max(tree_height(tree->left), tree_height(tree->right)));
 }
 
 /**
@@ -33,23 +33,23 @@ static int tree_height(const binary_tree_t *tree)
  */
 static int is_avl_helper(const binary_tree_t *tree, int min, int max)
 {
-    int lh, rh, balance;
+	int lh, rh, balance;
 
-    if (!tree)
-        return (1);
+	if (!tree)
+		return (1);
 
-    if (tree->n <= min || tree->n >= max)
-        return (0);
+	if (tree->n <= min || tree->n >= max)
+		return (0);
 
-    lh = tree_height(tree->left);
-    rh = tree_height(tree->right);
-    balance = lh - rh;
+	lh = tree_height(tree->left);
+	rh = tree_height(tree->right);
+	balance = lh - rh;
 
-    if (balance > 1 || balance < -1)
-        return (0);
+	if (balance > 1 || balance < -1)
+		return (0);
 
-    return (is_avl_helper(tree->left, min, tree->n) &&
-            is_avl_helper(tree->right, tree->n, max));
+	return (is_avl_helper(tree->left, min, tree->n) &&
+		is_avl_helper(tree->right, tree->n, max));
 }
 
 /**
@@ -59,7 +59,7 @@ static int is_avl_helper(const binary_tree_t *tree, int min, int max)
  */
 int binary_tree_is_avl(const binary_tree_t *tree)
 {
-    if (!tree)
-        return (0);
-    return (is_avl_helper(tree, INT_MIN, INT_MAX));
+	if (!tree)
+		 return (0);
+	return (is_avl_helper(tree, INT_MIN, INT_MAX));
 }
