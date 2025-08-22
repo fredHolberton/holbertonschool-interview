@@ -117,8 +117,7 @@ static int is_valid_substring(const char *s, const char **words,
  *
  * Return: malloc'd array of indices, or NULL if none
  */
-int *find_substring(char const *s, char const **words,
-		int nb_words, int *n)
+int *find_substring(char const *s, char const **words, int nb_words, int *n)
 {
 	int s_len, word_len, sub_len, i, count_found = 0;
 	int *indices, *count;
@@ -126,36 +125,28 @@ int *find_substring(char const *s, char const **words,
 	*n = 0;
 	if (!s || !words || nb_words == 0)
 		return (NULL);
-
 	word_len = strlen(words[0]);
 	if (word_len == 0)
 		return (NULL);
-
 	s_len = strlen(s);
 	sub_len = nb_words * word_len;
-
 	if (s_len < sub_len)
 		return (NULL);
-
 	count = build_count(words, nb_words);
 	if (!count)
 		return (NULL);
-
 	indices = malloc(sizeof(int) * (s_len - sub_len + 1));
 	if (!indices)
 	{
 		free(count);
 		return (NULL);
 	}
-
 	for (i = 0; i <= s_len - sub_len; i++)
 	{
 		if (is_valid_substring(s + i, words, nb_words, word_len, count))
 			indices[count_found++] = i;
 	}
-
 	free(count);
-
 	if (count_found == 0)
 	{
 		free(indices);
